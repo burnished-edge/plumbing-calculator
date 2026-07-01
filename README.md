@@ -54,6 +54,8 @@ Collaborate effortlessly by generating a custom URL. Clicking the **Copy Link** 
 4. Review the [Math Breakdown](#math-breakdown) to verify fractional outputs and code compliance.
 5. Use the [Export tools](#json-import-and-export) to save your configuration or generate a [PDF report](#pdf-export) for submission.
 
+---
+
 ## ⚠️ JURISDICTIONAL NOTICE: LADBS ONLY
  
 This calculator is explicitly configured for projects within the jurisdiction of the **Los Angeles Department of Building and Safety (LADBS)**. 
