@@ -69,6 +69,6 @@ Instead, California defers these requirements to the CPC. Because of this omissi
 
 While cities like Los Angeles default to CPC Table 4-1, other Authorities Having Jurisdiction (AHJs) enforce their own, often more stringent, rules. For example:
 * **San Francisco** applies its own local amendments to CPC Table 422.1 and enforces unique local overlays (such as the Drink Tap Ordinance) that strictly regulate drinking fountains and bottle fillers, altering overall fixture counts.
-* **San Diego** bypasses CPC Table 4-1 entirely in favor of its own local occupant load chart (via Tech Bulletin PLMB 4-1). For any occupancy use not explicitly listed in their custom table, San Diego requires calculating the plumbing occupant load using the standard architectural egress tables (CBC Table 1004.5) *multiplied by two*. 
+* **San Diego** bypasses CPC Table 4-1 entirely in favor of its own local occupant load chart (via [Tech Bulletin PLMB 4-1, Table A](https://www.sandiego.gov/sites/default/files/dsdplmb-4-1_0.pdf)). For any occupancy use not explicitly listed in their custom table, San Diego requires calculating the plumbing occupant load using the standard architectural egress tables (CBC Table 1004.5) *multiplied by two*. 
  
 **Always verify the required plumbing occupant load methodology with your local AHJ if you are designing outside of Los Angeles.**
