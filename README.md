@@ -10,7 +10,7 @@ Welcome to the **LAPC Calculator**, a tool designed to streamline plumbing fixtu
   * [JSON Import and Export](#json-import-and-export)
   * [Copy Share Link](#copy-share-link)
 * [Usage](#usage)
-* [Jurisdiction Notice](#⚠️-jurisdictional-notice:-LADBS-only)
+* [Jurisdiction Notice](#jurisdictional-notice:-LADBS-only)
 
 ---
 
@@ -56,9 +56,9 @@ Collaborate effortlessly by generating a custom URL. Clicking the **Copy Link** 
 
 ---
 
-## ⚠️ JURISDICTIONAL NOTICE: LADBS ONLY
+## JURISDICTIONAL NOTICE: LADBS ONLY
  
-This calculator is explicitly configured for projects within the jurisdiction of the **Los Angeles Department of Building and Safety (LADBS)**. 
+⚠️ This calculator is explicitly configured for projects within the jurisdiction of the **Los Angeles Department of Building and Safety (LADBS)**. 
  
 LADBS calculates plumbing fixture requirements using **Table 4-1 (Occupant Load Factor)** of the California Plumbing Code (CPC). This application of the code is formally dictated by the city's plan check memo, which you can review here: [LADBS Info Bulletin: Plumbing Fixtures (IB-P-BC2014-095)](https://dbs.lacity.gov/sites/default/files/efs/forms/pc17/plumbing-fixtures-ib-p-bc2014-095.pdf).
 
