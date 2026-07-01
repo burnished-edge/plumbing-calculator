@@ -1090,6 +1090,11 @@
         let gtmWC = 0, gtfWC = 0, gtmUr = 0, gtmLav = 0, gtfLav = 0, gtDF = 0;
         let gtuWC = 0, gtuLav = 0;
         
+        // Track the fractional elements for the final summation breakdown
+        let sumStrings = {
+            mWC: [], fWC: [], mUr: [], mLav: [], fLav: [], df: [], uWC: [], uLav: []
+        };
+        
         const buckets = {};
         const rootColorMap = getRootColorMap();
 
@@ -1141,11 +1146,16 @@
              legendHtml += `<div class="legend-item"><span class="legend-swatch" style="background-color:${color};"></span> ${bucket.rootLabel}</div>`;
         });
         legendHtml += `</div>`;
+        
+        // Dynamic Badge Generator for consistent UI styling
+        const badge = (val, color, title) => `<span style="background-color: ${color}; padding: 1px 4px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.1); display: inline-block; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; -webkit-print-color-adjust: exact; print-color-adjust: exact;" title="${title}"><strong>${val}</strong></span>`;
+        const applyBadgeToMath = (htmlStr, color) => htmlStr.replace(/<strong>([\d.]+)<\/strong>/g, badge('$1', color, ''));
 
         // 3. Calculation Engine Execution Phase
         Object.values(buckets).forEach(bucket => {
+            const bColor = rootColorMap[bucket.rootId];
+            
             if (bucket.calcType === 'area' || bucket.calcType === 'seats') {
-                // Apply 50/50 split ONLY to global aggregated occupant sum of this bucket
                 const maleOcc = Math.ceil(bucket.totalOcc / 2);
                 const femaleOcc = Math.ceil(bucket.totalOcc / 2);
 
@@ -1166,39 +1176,56 @@
                 gtmLav += b_mLav;
                 gtfLav += b_fLav;
                 gtDF += b_df;
+                
+                // Push styled fractions to the global sum array
+                if(b_mWC > 0) sumStrings.mWC.push(badge(b_mWC.toFixed(2), bColor, bucket.rootLabel));
+                if(b_fWC > 0) sumStrings.fWC.push(badge(b_fWC.toFixed(2), bColor, bucket.rootLabel));
+                if(b_mUr > 0) sumStrings.mUr.push(badge(b_mUr.toFixed(2), bColor, bucket.rootLabel));
+                if(b_mLav > 0) sumStrings.mLav.push(badge(b_mLav.toFixed(2), bColor, bucket.rootLabel));
+                if(b_fLav > 0) sumStrings.fLav.push(badge(b_fLav.toFixed(2), bColor, bucket.rootLabel));
+                if(b_df > 0) sumStrings.df.push(badge(b_df.toFixed(2), bColor, bucket.rootLabel));
 
-                const spaceAdditions = bucket.spaceOccs.length > 1 ? `(${bucket.spaceOccs.join(' + ')}) = ` : '';
+                // Generate sub-labels for space additions and split 50/50 onto a new line
+                const additionLabels = bucket.spaceOccs.map((occ, i) => `${occ} <span style="font-size:0.85em; opacity:0.75;">(${bucket.spaceNames[i]})</span>`).join(' + ');
+                const spaceAdditions = bucket.spaceOccs.length > 1 ? `<br><span style="padding-left: 1rem;">= ${additionLabels}</span>` : '';
                 
                 mathBreakdownHtml += `
                     <div class="breakdown-group">
                         <h4 style="margin: 0 0 0.5rem 0; color: var(--text-main); font-size: 0.9rem;">
-                            <span class="legend-swatch" style="background-color:${rootColorMap[bucket.rootId]}; display:inline-block; margin-right:4px; vertical-align:middle;"></span>
+                            <span class="legend-swatch" style="background-color:${bColor}; display:inline-block; margin-right:4px; vertical-align:middle;"></span>
                             ${bucket.rootLabel}
                         </h4>
-                        <p class="highlight-math">Aggregated Base Load: ${spaceAdditions}${bucket.totalOcc} Occupants ➔ 50/50 Split rounds up to <strong>${maleOcc} Male</strong> & <strong>${femaleOcc} Female</strong></p>
-                        ${bucket.logic.mathMWC(maleOcc)}
-                        ${bucket.logic.mathFWC(femaleOcc)}
-                        ${bucket.logic.mathMUr(maleOcc)}
-                        ${bucket.logic.mathMLav(maleOcc)}
-                        ${bucket.logic.mathFLav(femaleOcc)}
-                        ${bucket.logic.mathDF(bucket.totalOcc)}
+                        <p class="highlight-math">Aggregated Base Load: <strong>${bucket.totalOcc} Occupants</strong> ${spaceAdditions}</p>
+                        <p class="highlight-math" style="margin-top: 0.25rem;">➔ 50/50 Split rounds up to <strong>${maleOcc} Male</strong> & <strong>${femaleOcc} Female</strong></p>
+                        ${applyBadgeToMath(bucket.logic.mathMWC(maleOcc), bColor)}
+                        ${applyBadgeToMath(bucket.logic.mathFWC(femaleOcc), bColor)}
+                        ${applyBadgeToMath(bucket.logic.mathMUr(maleOcc), bColor)}
+                        ${applyBadgeToMath(bucket.logic.mathMLav(maleOcc), bColor)}
+                        ${applyBadgeToMath(bucket.logic.mathFLav(femaleOcc), bColor)}
+                        ${applyBadgeToMath(bucket.logic.mathDF(bucket.totalOcc), bColor)}
                     </div>
                 `;
             } else if (bucket.calcType === 'units') {
                 gtuWC += bucket.units;
                 gtuLav += bucket.units;
+                
+                if(bucket.units > 0) {
+                    sumStrings.uWC.push(badge(bucket.units, bColor, bucket.rootLabel));
+                    sumStrings.uLav.push(badge(bucket.units, bColor, bucket.rootLabel));
+                }
 
-                const spaceAdditions = bucket.spaceOccs.length > 1 ? `(${bucket.spaceOccs.join(' + ')}) = ` : '';
+                const additionLabels = bucket.spaceOccs.map((occ, i) => `${occ} <span style="font-size:0.85em; opacity:0.75;">(${bucket.spaceNames[i]})</span>`).join(' + ');
+                const spaceAdditions = bucket.spaceOccs.length > 1 ? `<br><span style="padding-left: 1rem;">= ${additionLabels}</span>` : '';
 
                 mathBreakdownHtml += `
                     <div class="breakdown-group">
                         <h4 style="margin: 0 0 0.5rem 0; color: var(--text-main); font-size: 0.9rem;">
-                            <span class="legend-swatch" style="background-color:${rootColorMap[bucket.rootId]}; display:inline-block; margin-right:4px; vertical-align:middle;"></span>
+                            <span class="legend-swatch" style="background-color:${bColor}; display:inline-block; margin-right:4px; vertical-align:middle;"></span>
                             ${bucket.rootLabel}
                         </h4>
-                        <p class="highlight-math">Aggregated Units: ${spaceAdditions}${bucket.units} Units</p>
-                        <p>Private/Unisex WC: <strong>${bucket.units}</strong></p>
-                        <p>Private/Unisex Lav: <strong>${bucket.units}</strong></p>
+                        <p class="highlight-math">Aggregated Units: <strong>${bucket.units} Units</strong> ${spaceAdditions}</p>
+                        <p>Private/Unisex WC: ${badge(bucket.units, bColor, '')}</p>
+                        <p>Private/Unisex Lav: ${badge(bucket.units, bColor, '')}</p>
                     </div>
                 `;
             }
@@ -1226,14 +1253,14 @@
             gtMathContainer.innerHTML = mathBreakdownHtml + `
                 <div class="breakdown-final">
                     <h4 style="margin: 0 0 0.5rem 0; color: var(--text-main); font-size: 0.9rem;">Final Project Aggregation</h4>
-                    <p><strong>Total Water Closets (M):</strong> ${gtmWC.toFixed(2)} ➔ <strong>${Math.ceil(gtmWC)}</strong></p>
-                    <p><strong>Total Water Closets (F):</strong> ${gtfWC.toFixed(2)} ➔ <strong>${Math.ceil(gtfWC)}</strong></p>
-                    <p><strong>Total Urinals (M):</strong> ${gtmUr.toFixed(2)} ➔ <strong>${Math.ceil(gtmUr)}</strong></p>
-                    <p><strong>Total Lavatories (M):</strong> ${gtmLav.toFixed(2)} ➔ <strong>${Math.ceil(gtmLav)}</strong></p>
-                    <p><strong>Total Lavatories (F):</strong> ${gtfLav.toFixed(2)} ➔ <strong>${Math.ceil(gtfLav)}</strong></p>
+                    <p><strong>Total Water Closets (M):</strong> ${sumStrings.mWC.length > 0 ? sumStrings.mWC.join(' + ') + ' = ' : ''}${gtmWC.toFixed(2)} ➔ <strong>${Math.ceil(gtmWC)}</strong></p>
+                    <p><strong>Total Water Closets (F):</strong> ${sumStrings.fWC.length > 0 ? sumStrings.fWC.join(' + ') + ' = ' : ''}${gtfWC.toFixed(2)} ➔ <strong>${Math.ceil(gtfWC)}</strong></p>
+                    <p><strong>Total Urinals (M):</strong> ${sumStrings.mUr.length > 0 ? sumStrings.mUr.join(' + ') + ' = ' : ''}${gtmUr.toFixed(2)} ➔ <strong>${Math.ceil(gtmUr)}</strong></p>
+                    <p><strong>Total Lavatories (M):</strong> ${sumStrings.mLav.length > 0 ? sumStrings.mLav.join(' + ') + ' = ' : ''}${gtmLav.toFixed(2)} ➔ <strong>${Math.ceil(gtmLav)}</strong></p>
+                    <p><strong>Total Lavatories (F):</strong> ${sumStrings.fLav.length > 0 ? sumStrings.fLav.join(' + ') + ' = ' : ''}${gtfLav.toFixed(2)} ➔ <strong>${Math.ceil(gtfLav)}</strong></p>
                     <p><strong>All-Gender Water Closets:</strong> Total (M) ${gtmWC.toFixed(2)} + Total (F) ${gtfWC.toFixed(2)} = ${(gtmWC + gtfWC).toFixed(2)} ➔ <strong>${Math.ceil(gtmWC + gtfWC)}</strong></p>
                     <p><strong>All-Gender Lavatories:</strong> Total (M) ${gtmLav.toFixed(2)} + Total (F) ${gtfLav.toFixed(2)} = ${(gtmLav + gtfLav).toFixed(2)} ➔ <strong>${Math.ceil(gtmLav + gtfLav)}</strong></p>
-                    <p><strong>Total Drinking Fountains:</strong> ${gtDF.toFixed(2)} ➔ <strong>${Math.ceil(gtDF)}</strong></p>
+                    <p><strong>Total Drinking Fountains:</strong> ${sumStrings.df.length > 0 ? sumStrings.df.join(' + ') + ' = ' : ''}${gtDF.toFixed(2)} ➔ <strong>${Math.ceil(gtDF)}</strong></p>
                 </div>
                 ${legendHtml}
             `;
