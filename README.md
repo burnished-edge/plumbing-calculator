@@ -10,7 +10,7 @@ Welcome to the **LAPC Calculator**, a tool designed to streamline plumbing fixtu
   * [JSON Import and Export](#json-import-and-export)
   * [Copy Share Link](#copy-share-link)
 * [Usage](#usage)
-* [Contributing](#⚠️-JURISDICTIONAL-NOTICE:-LADBS-ONLY)
+* [Jurisdiction Notice](#⚠️-jurisdictional-notice:-LADBS-only)
 
 ---
 
