@@ -58,7 +58,7 @@ Collaborate effortlessly by generating a custom URL. Clicking the **Copy Link** 
 
 ## Jurisdictional Notice
 
-> **⚠️ JURISDICTIONAL NOTICE: LADBS ONLY**
+> **⚠️ LADBS ONLY**
 > 
 > This calculator is explicitly configured for projects within the jurisdiction of the **Los Angeles Department of Building and Safety (LADBS)**. 
 > 
