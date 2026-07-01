@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LAPC Comprehensive Plumbing Calculator (Condensed)</title>
+    <title>LAPC Comprehensive Plumbing Calculator (Aggregator)</title>
     <style>
         :root {
             --bg-color: #f4f4f5;
@@ -359,7 +359,7 @@
         <div class="header-titles">
             <h1>Project Plumbing Fixture Calculator</h1>
             <div class="subtitle">Fractional Method (2025 LAPC / 2025 CPC Tables 422.1 & 4-1)</div>
-            <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.25rem; font-style: italic;">Last Updated: May 4, 2026 at 5:36 PM PDT</div>
+            <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.25rem; font-style: italic;">Last Updated: June 30, 2026 at 11:15 AM PDT</div>
         </div>
         <div class="util-buttons">
             <button class="btn btn-outline" onclick="printReport()">Print / Save PDF</button>
@@ -448,7 +448,6 @@
         <button class="print-btn-bottom" onclick="printReport()">🖨️ Print / Save PDF Report</button>
     </div>
 </div>
-
 <script>
     // FRACTIONAL LOGIC ENGINE
     function fracStep(val, limits, counts, overDivisor) {
@@ -502,10 +501,10 @@
         return `<p>${fixtureName}: ${val} occupants × 1/${divisor} = <strong>${(val/divisor).toFixed(2)}</strong></p>`;
     }
 
-    // Mapping Definitions
+    // Mapping Definitions (Aggregated via Root ID)
     const occupancyData = {
         'A-1': {
-            label: 'A-1 Assembly (fixed seating)', calcType: 'seats',
+            rootId: 'A-1', rootLabel: 'Group A-1 Assembly', label: 'A-1 Assembly (fixed seating)', calcType: 'seats',
             mWC: (m) => fracStep(m, [100,200,400], [1,2,3], 500), mathMWC: (m) => getFracMath(m, [100,200,400], [1,2,3], 500, 'WC (M)'),
             fWC: (f) => fracStep(f, [25,50,100,200,300,400], [1,2,3,4,6,8], 125), mathFWC: (f) => getFracMath(f, [25,50,100,200,300,400], [1,2,3,4,6,8], 125, 'WC (F)'),
             mUr: (m) => fracStep(m, [200,300,400,600], [1,2,3,4], 300), mathMUr: (m) => getFracMath(m, [200,300,400,600], [1,2,3,4], 300, 'Urinals'),
@@ -514,7 +513,7 @@
             df: (t) => fracStep(t, [250,500,750], [1,2,3], 500), mathDF: (t) => getFracMath(t, [250,500,750], [1,2,3], 500, 'Drinking Fountains')
         },
         'A-2': {
-            label: 'A-2 Assembly (restaurants, pubs, lounges)', calcType: 'area', defaultFactor: 30,
+            rootId: 'A-2', rootLabel: 'Group A-2 Assembly', label: 'A-2 Assembly (restaurants, pubs, lounges)', calcType: 'area', defaultFactor: 30,
             mWC: (m) => fracStep(m, [50,150,300,400], [1,2,3,4], 250), mathMWC: (m) => getFracMath(m, [50,150,300,400], [1,2,3,4], 250, 'WC (M)'),
             fWC: (f) => fracStep(f, [25,50,100,200,300,400], [1,2,3,4,6,8], 125), mathFWC: (f) => getFracMath(f, [25,50,100,200,300,400], [1,2,3,4,6,8], 125, 'WC (F)'),
             mUr: (m) => fracStep(m, [200,300,400,600], [1,2,3,4], 300), mathMUr: (m) => getFracMath(m, [200,300,400,600], [1,2,3,4], 300, 'Urinals'),
@@ -523,7 +522,7 @@
             df: (t) => fracStep(t, [250,500,750], [1,2,3], 500), mathDF: (t) => getFracMath(t, [250,500,750], [1,2,3], 500, 'Drinking Fountains')
         },
         'A-2-Seats': {
-            label: 'A-2 Assembly (seat count override)', calcType: 'seats',
+            rootId: 'A-2', rootLabel: 'Group A-2 Assembly', label: 'A-2 Assembly (seat count override)', calcType: 'seats',
             mWC: (m) => fracStep(m, [50,150,300,400], [1,2,3,4], 250), mathMWC: (m) => getFracMath(m, [50,150,300,400], [1,2,3,4], 250, 'WC (M)'),
             fWC: (f) => fracStep(f, [25,50,100,200,300,400], [1,2,3,4,6,8], 125), mathFWC: (f) => getFracMath(f, [25,50,100,200,300,400], [1,2,3,4,6,8], 125, 'WC (F)'),
             mUr: (m) => fracStep(m, [200,300,400,600], [1,2,3,4], 300), mathMUr: (m) => getFracMath(m, [200,300,400,600], [1,2,3,4], 300, 'Urinals'),
@@ -532,7 +531,7 @@
             df: (t) => fracStep(t, [250,500,750], [1,2,3], 500), mathDF: (t) => getFracMath(t, [250,500,750], [1,2,3], 500, 'Drinking Fountains')
         },
         'A-3-Exhibit': {
-            label: 'A-3 Assembly (museums, libraries, exhibit, conference)', calcType: 'area', defaultFactor: 30,
+            rootId: 'A-3', rootLabel: 'Group A-3 Assembly', label: 'A-3 Assembly (museums, libraries, exhibit, conference)', calcType: 'area', defaultFactor: 30,
             mWC: (m) => fracStep(m, [100,200,400], [1,2,3], 500), mathMWC: (m) => getFracMath(m, [100,200,400], [1,2,3], 500, 'WC (M)'),
             fWC: (f) => fracStep(f, [25,50,100,200,300,400], [1,2,3,4,6,8], 125), mathFWC: (f) => getFracMath(f, [25,50,100,200,300,400], [1,2,3,4,6,8], 125, 'WC (F)'),
             mUr: (m) => fracStep(m, [100,200,400,600], [1,2,3,4], 300), mathMUr: (m) => getFracMath(m, [100,200,400,600], [1,2,3,4], 300, 'Urinals'),
@@ -541,7 +540,7 @@
             df: (t) => fracStep(t, [250,500,750], [1,2,3], 500), mathDF: (t) => getFracMath(t, [250,500,750], [1,2,3], 500, 'Drinking Fountains')
         },
         'A-3-Seats': {
-            label: 'A-3 Assembly (seat count override)', calcType: 'seats',
+            rootId: 'A-3', rootLabel: 'Group A-3 Assembly', label: 'A-3 Assembly (seat count override)', calcType: 'seats',
             mWC: (m) => fracStep(m, [100,200,400], [1,2,3], 500), mathMWC: (m) => getFracMath(m, [100,200,400], [1,2,3], 500, 'WC (M)'),
             fWC: (f) => fracStep(f, [25,50,100,200,300,400], [1,2,3,4,6,8], 125), mathFWC: (f) => getFracMath(f, [25,50,100,200,300,400], [1,2,3,4,6,8], 125, 'WC (F)'),
             mUr: (m) => fracStep(m, [100,200,400,600], [1,2,3,4], 300), mathMUr: (m) => getFracMath(m, [100,200,400,600], [1,2,3,4], 300, 'Urinals'),
@@ -550,7 +549,7 @@
             df: (t) => fracStep(t, [250,500,750], [1,2,3], 500), mathDF: (t) => getFracMath(t, [250,500,750], [1,2,3], 500, 'Drinking Fountains')
         },
         'A-4': {
-            label: 'A-4 Assembly (indoor activities w/ spectator seating)', calcType: 'seats',
+            rootId: 'A-4', rootLabel: 'Group A-4 Assembly', label: 'A-4 Assembly (indoor activities w/ spectator seating)', calcType: 'seats',
             mWC: (m) => fracStep(m, [100,200,400], [1,2,3], 500), mathMWC: (m) => getFracMath(m, [100,200,400], [1,2,3], 500, 'WC (M)'),
             fWC: (f) => fracStep(f, [25,50,100,200,300,400], [1,2,3,4,6,8], 125), mathFWC: (f) => getFracMath(f, [25,50,100,200,300,400], [1,2,3,4,6,8], 125, 'WC (F)'),
             mUr: (m) => fracStep(m, [100,200,400,600], [1,2,3,4], 300), mathMUr: (m) => getFracMath(m, [100,200,400,600], [1,2,3,4], 300, 'Urinals'),
@@ -559,7 +558,7 @@
             df: (t) => fracStep(t, [250,500,750], [1,2,3], 500), mathDF: (t) => getFracMath(t, [250,500,750], [1,2,3], 500, 'Drinking Fountains')
         },
         'A-5': {
-            label: 'A-5 Assembly (outdoor activities or sporting events)', calcType: 'seats',
+            rootId: 'A-5', rootLabel: 'Group A-5 Assembly', label: 'A-5 Assembly (outdoor activities or sporting events)', calcType: 'seats',
             mWC: (m) => fracStep(m, [100,200,400], [1,2,3], 500), mathMWC: (m) => getFracMath(m, [100,200,400], [1,2,3], 500, 'WC (M)'),
             fWC: (f) => fracStep(f, [25,50,100,200,300,400], [1,2,3,4,6,8], 125), mathFWC: (f) => getFracMath(f, [25,50,100,200,300,400], [1,2,3,4,6,8], 125, 'WC (F)'),
             mUr: (m) => fracStep(m, [100,200,400,600], [1,2,3,4], 300), mathMUr: (m) => getFracMath(m, [100,200,400,600], [1,2,3,4], 300, 'Urinals'),
@@ -568,7 +567,7 @@
             df: (t) => fracStep(t, [250,500,750], [1,2,3], 500), mathDF: (t) => getFracMath(t, [250,500,750], [1,2,3], 500, 'Drinking Fountains')
         },
         'B': {
-            label: 'B Business (office, professional, service)', calcType: 'area', defaultFactor: 150,
+            rootId: 'B', rootLabel: 'Group B Business', label: 'B Business (office, professional, service)', calcType: 'area', defaultFactor: 150,
             mWC: (m) => fracStep(m, [50,100,200,400], [1,2,3,4], 500), mathMWC: (m) => getFracMath(m, [50,100,200,400], [1,2,3,4], 500, 'WC (M)'),
             fWC: (f) => fracStep(f, [15,30,50,100,200,400], [1,2,3,4,8,11], 150), mathFWC: (f) => getFracMath(f, [15,30,50,100,200,400], [1,2,3,4,8,11], 150, 'WC (F)'),
             mUr: (m) => fracStep(m, [100,200,400,600], [1,2,3,4], 300), mathMUr: (m) => getFracMath(m, [100,200,400,600], [1,2,3,4], 300, 'Urinals'),
@@ -577,7 +576,7 @@
             df: (t) => linear(t, 150), mathDF: (t) => getLinearMath(t, 150, 'Drinking Fountains')
         },
         'B-Seats': {
-            label: 'B Business (seat count override)', calcType: 'seats',
+            rootId: 'B', rootLabel: 'Group B Business', label: 'B Business (seat count override)', calcType: 'seats',
             mWC: (m) => fracStep(m, [50,100,200,400], [1,2,3,4], 500), mathMWC: (m) => getFracMath(m, [50,100,200,400], [1,2,3,4], 500, 'WC (M)'),
             fWC: (f) => fracStep(f, [15,30,50,100,200,400], [1,2,3,4,8,11], 150), mathFWC: (f) => getFracMath(f, [15,30,50,100,200,400], [1,2,3,4,8,11], 150, 'WC (F)'),
             mUr: (m) => fracStep(m, [100,200,400,600], [1,2,3,4], 300), mathMUr: (m) => getFracMath(m, [100,200,400,600], [1,2,3,4], 300, 'Urinals'),
@@ -586,7 +585,7 @@
             df: (t) => linear(t, 150), mathDF: (t) => getLinearMath(t, 150, 'Drinking Fountains')
         },
         'E': {
-            label: 'E Educational (private or public schools)', calcType: 'area', defaultFactor: 50,
+            rootId: 'E', rootLabel: 'Group E Educational', label: 'E Educational (private or public schools)', calcType: 'area', defaultFactor: 50,
             mWC: (m) => linear(m, 50), mathMWC: (m) => getLinearMath(m, 50, 'WC (M)'),
             fWC: (f) => linear(f, 30), mathFWC: (f) => getLinearMath(f, 30, 'WC (F)'),
             mUr: (m) => linear(m, 100), mathMUr: (m) => getLinearMath(m, 100, 'Urinals'),
@@ -595,7 +594,7 @@
             df: (t) => linear(t, 150), mathDF: (t) => getLinearMath(t, 150, 'Drinking Fountains')
         },
         'F': {
-            label: 'F1, F2 Factory or Industrial', calcType: 'area', defaultFactor: 500,
+            rootId: 'F', rootLabel: 'Group F Factory/Industrial', label: 'F1, F2 Factory or Industrial', calcType: 'area', defaultFactor: 500,
             mWC: (m) => fracStep(m, [50,75,100], [1,2,3], 40), mathMWC: (m) => getFracMath(m, [50,75,100], [1,2,3], 40, 'WC (M)'),
             fWC: (f) => fracStep(f, [50,75,100], [1,2,3], 40), mathFWC: (f) => getFracMath(f, [50,75,100], [1,2,3], 40, 'WC (F)'),
             mUr: (m) => 0, mathMUr: (m) => '<p>Urinals: 0.00</p>',
@@ -604,7 +603,7 @@
             df: (t) => fracStep(t, [250,500,750], [1,2,3], 500), mathDF: (t) => getFracMath(t, [250,500,750], [1,2,3], 500, 'Drinking Fountains')
         },
         'I-1': {
-            label: 'I-1 Institutional (substance abuse, assisted living)', calcType: 'area', defaultFactor: 200,
+            rootId: 'I-1', rootLabel: 'Group I-1 Institutional', label: 'I-1 Institutional (substance abuse, assisted living)', calcType: 'area', defaultFactor: 200,
             mWC: (m) => linear(m, 15), mathMWC: (m) => getLinearMath(m, 15, 'WC (M)'),
             fWC: (f) => linear(f, 15), mathFWC: (f) => getLinearMath(f, 15, 'WC (F)'),
             mUr: (m) => 0, mathMUr: (m) => '<p>Urinals: 0.00</p>',
@@ -612,9 +611,9 @@
             fLav: (f) => linear(f, 15), mathFLav: (f) => getLinearMath(f, 15, 'Lavatory (F)'),
             df: (t) => linear(t, 150), mathDF: (t) => getLinearMath(t, 150, 'Drinking Fountains')
         },
-        'I-2-Rooms': { label: 'I-2 Hospitals and nursing homes (individual/ward rooms)', calcType: 'units' },
+        'I-2-Rooms': { rootId: 'I-2-Rooms', rootLabel: 'Group I-2 Hospitals (Rooms)', label: 'I-2 Hospitals and nursing homes (individual/ward rooms)', calcType: 'units' },
         'I-2-Waiting': {
-            label: 'I-2 Hospital Waiting or Visitor Rooms', calcType: 'area', defaultFactor: 15,
+            rootId: 'I-2-Waiting', rootLabel: 'Group I-2 Hospitals (Waiting)', label: 'I-2 Hospital Waiting or Visitor Rooms', calcType: 'area', defaultFactor: 15,
             mWC: (m) => linear(m, 15), mathMWC: (m) => getLinearMath(m, 15, 'WC (M)'),
             fWC: (f) => linear(f, 15), mathFWC: (f) => getLinearMath(f, 15, 'WC (F)'),
             mUr: (m) => 0, mathMUr: (m) => '<p>Urinals: 0.00</p>',
@@ -622,9 +621,9 @@
             fLav: (f) => linear(f, 15), mathFLav: (f) => getLinearMath(f, 15, 'Lavatory (F)'),
             df: (t) => linear(t, 150), mathDF: (t) => getLinearMath(t, 150, 'Drinking Fountains')
         },
-        'I-3-Cells': { label: 'I-3 Prisons, Correctional, juvenile center (Cells/Floors)', calcType: 'units' },
+        'I-3-Cells': { rootId: 'I-3-Cells', rootLabel: 'Group I-3 Prisons (Cells)', label: 'I-3 Prisons, Correctional, juvenile center (Cells/Floors)', calcType: 'units' },
         'I-3-Employee': {
-            label: 'I-3 Prisons, Correctional (Employee Use)', calcType: 'area', defaultFactor: 100,
+            rootId: 'I-3-Employee', rootLabel: 'Group I-3 Prisons (Employee)', label: 'I-3 Prisons, Correctional (Employee Use)', calcType: 'area', defaultFactor: 100,
             mWC: (m) => fracStep(m, [15,35,55], [1,2,3], 40), mathMWC: (m) => getFracMath(m, [15,35,55], [1,2,3], 40, 'WC (M)'),
             fWC: (f) => fracStep(f, [15,35,55], [1,2,3], 40), mathFWC: (f) => getFracMath(f, [15,35,55], [1,2,3], 40, 'WC (F)'),
             mUr: (m) => 0, mathMUr: (m) => '<p>Urinals: 0.00</p>',
@@ -633,7 +632,7 @@
             df: (t) => linear(t, 150), mathDF: (t) => getLinearMath(t, 150, 'Drinking Fountains')
         },
         'I-4': {
-            label: 'I-4 Institutional (care for less than 24 hours)', calcType: 'area', defaultFactor: 35,
+            rootId: 'I-4', rootLabel: 'Group I-4 Institutional', label: 'I-4 Institutional (care for less than 24 hours)', calcType: 'area', defaultFactor: 35,
             mWC: (m) => linear(m, 40), mathMWC: (m) => getLinearMath(m, 40, 'WC (M)'),
             fWC: (f) => linear(f, 40), mathFWC: (f) => getLinearMath(f, 40, 'WC (F)'),
             mUr: (m) => 0, mathMUr: (m) => '<p>Urinals: 0.00</p>',
@@ -642,7 +641,7 @@
             df: (t) => linear(t, 150), mathDF: (t) => getLinearMath(t, 150, 'Drinking Fountains')
         },
         'M': {
-            label: 'M Mercantile (sale of merchandise)', calcType: 'area', defaultFactor: 100,
+            rootId: 'M', rootLabel: 'Group M Mercantile', label: 'M Mercantile (sale of merchandise)', calcType: 'area', defaultFactor: 100,
             mWC: (m) => fracStep(m, [100,200,400], [1,2,3], 500), mathMWC: (m) => getFracMath(m, [100,200,400], [1,2,3], 500, 'WC (M)'),
             fWC: (f) => fracStep(f, [100,200,300,400], [1,2,4,6], 200), mathFWC: (f) => getFracMath(f, [100,200,300,400], [1,2,4,6], 200, 'WC (F)'),
             mUr: (m) => fracStep(m, [200,400], [0,1], 500), mathMUr: (m) => getFracMath(m, [200,400], [0,1], 500, 'Urinals'),
@@ -650,9 +649,9 @@
             fLav: (f) => fracStep(f, [200,300,400], [1,2,3], 400), mathFLav: (f) => getFracMath(f, [200,300,400], [1,2,3], 400, 'Lavatory (F)'),
             df: (t) => fracStep(t, [250,500,750], [1,2,3], 500), mathDF: (t) => getFracMath(t, [250,500,750], [1,2,3], 500, 'Drinking Fountains')
         },
-        'R-1': { label: 'R-1 Residential (hotels, motels, bed and breakfast)', calcType: 'units' },
+        'R-1': { rootId: 'R-1', rootLabel: 'Group R-1 Residential', label: 'R-1 Residential (hotels, motels, bed and breakfast)', calcType: 'units' },
         'R-2-Dorm': {
-            label: 'R-2 Residential - Dormitories', calcType: 'area', defaultFactor: 50,
+            rootId: 'R-2-Dorm', rootLabel: 'Group R-2 Dormitories', label: 'R-2 Residential - Dormitories', calcType: 'area', defaultFactor: 50,
             mWC: (m) => linear(m, 10), mathMWC: (m) => getLinearMath(m, 10, 'WC (M)'),
             fWC: (f) => linear(f, 8), mathFWC: (f) => getLinearMath(f, 8, 'WC (F)'),
             mUr: (m) => linear(m, 25), mathMUr: (m) => getLinearMath(m, 25, 'Urinals'),
@@ -660,9 +659,9 @@
             fLav: (f) => linear(f, 12), mathFLav: (f) => getLinearMath(f, 12, 'Lavatory (F)'),
             df: (t) => linear(t, 150), mathDF: (t) => getLinearMath(t, 150, 'Drinking Fountains')
         },
-        'R-2-Apt': { label: 'R-2 Residential - Apartment house/unit', calcType: 'units' },
+        'R-2-Apt': { rootId: 'R-2-Apt', rootLabel: 'Group R-2 Apartments', label: 'R-2 Residential - Apartment house/unit', calcType: 'units' },
         'R-2-Employee': {
-            label: 'R-2 Residential - Employee Use', calcType: 'area', defaultFactor: 150,
+            rootId: 'R-2-Employee', rootLabel: 'Group R-2 Employee Use', label: 'R-2 Residential - Employee Use', calcType: 'area', defaultFactor: 150,
             mWC: (m) => fracStep(m, [15,35,55], [1,2,3], 40), mathMWC: (m) => getFracMath(m, [15,35,55], [1,2,3], 40, 'WC (M)'),
             fWC: (f) => fracStep(f, [15,35,55], [1,2,3], 40), mathFWC: (f) => getFracMath(f, [15,35,55], [1,2,3], 40, 'WC (F)'),
             mUr: (m) => 0, mathMUr: (m) => '<p>Urinals: 0.00</p>',
@@ -671,7 +670,7 @@
             df: (t) => linear(t, 150), mathDF: (t) => getLinearMath(t, 150, 'Drinking Fountains')
         },
         'R-3-Group': {
-            label: 'R-3 Residential (more than 5 but <= 16 occupants)', calcType: 'area', defaultFactor: 200,
+            rootId: 'R-3-Group', rootLabel: 'Group R-3 Residential (Group)', label: 'R-3 Residential (more than 5 but <= 16 occupants)', calcType: 'area', defaultFactor: 200,
             mWC: (m) => linear(m, 10), mathMWC: (m) => getLinearMath(m, 10, 'WC (M)'),
             fWC: (f) => linear(f, 8), mathFWC: (f) => getLinearMath(f, 8, 'WC (F)'),
             mUr: (m) => 0, mathMUr: (m) => '<p>Urinals: 0.00</p>',
@@ -679,9 +678,9 @@
             fLav: (f) => linear(f, 12), mathFLav: (f) => getLinearMath(f, 12, 'Lavatory (F)'),
             df: (t) => linear(t, 150), mathDF: (t) => getLinearMath(t, 150, 'Drinking Fountains')
         },
-        'R-3-Dwelling': { label: 'R-3 Residential (one and two family dwellings)', calcType: 'units' },
+        'R-3-Dwelling': { rootId: 'R-3-Dwelling', rootLabel: 'Group R-3 Dwellings', label: 'R-3 Residential (one and two family dwellings)', calcType: 'units' },
         'R-4': {
-            label: 'R-4 Residential (residential care or assisted living)', calcType: 'area', defaultFactor: 200,
+            rootId: 'R-4', rootLabel: 'Group R-4 Residential Care', label: 'R-4 Residential (residential care or assisted living)', calcType: 'area', defaultFactor: 200,
             mWC: (m) => linear(m, 10), mathMWC: (m) => getLinearMath(m, 10, 'WC (M)'),
             fWC: (f) => linear(f, 8), mathFWC: (f) => getLinearMath(f, 8, 'WC (F)'),
             mUr: (m) => 0, mathMUr: (m) => '<p>Urinals: 0.00</p>',
@@ -690,7 +689,7 @@
             df: (t) => linear(t, 150), mathDF: (t) => getLinearMath(t, 150, 'Drinking Fountains')
         },
         'S': {
-            label: 'S-1, S-2 Storage (goods, warehouse, aircraft hanger)', calcType: 'area', defaultFactor: 4000,
+            rootId: 'S', rootLabel: 'Group S Storage', label: 'S-1, S-2 Storage (goods, warehouse, aircraft hanger)', calcType: 'area', defaultFactor: 4000,
             mWC: (m) => fracStep(m, [100,200,400], [1,2,3], 500), mathMWC: (m) => getFracMath(m, [100,200,400], [1,2,3], 500, 'WC (M)'),
             fWC: (f) => fracStep(f, [100,200,400], [1,2,3], 150), mathFWC: (f) => getFracMath(f, [100,200,400], [1,2,3], 150, 'WC (F)'),
             mUr: (m) => 0, mathMUr: (m) => '<p>Urinals: 0.00</p>',
@@ -735,6 +734,20 @@
         spaces = [
             { id: Date.now(), name: 'Occupied Space 1', type: 'B', area: 15000, factor: 150, seats: 0, units: 0 }
         ];
+    }
+
+    // Dynamic Root Color Mapper
+    function getRootColorMap() {
+        const map = {};
+        let colorIndex = 0;
+        spaces.forEach(space => {
+            const rId = occupancyData[space.type].rootId;
+            if (!map[rId]) {
+                map[rId] = halftoneColors[colorIndex % halftoneColors.length];
+                colorIndex++;
+            }
+        });
+        return map;
     }
 
     // PDF Print Logic
@@ -882,13 +895,14 @@
         container.style.minHeight = currentHeight + 'px';
         
         container.innerHTML = '';
+        const rootColorMap = getRootColorMap();
         
         spaces.forEach((space, index) => {
             const div = document.createElement('div');
             div.className = 'space-card';
             
-            // Apply Halftone color
-            const spaceColor = halftoneColors[index % halftoneColors.length];
+            // Assign color based on matching root code group
+            const spaceColor = rootColorMap[occupancyData[space.type].rootId];
             div.style.borderLeft = `5px solid ${spaceColor}`;
             
             div.ondragstart = (e) => handleDragStart(e, space.id);
@@ -921,67 +935,11 @@
                         <label>Load Factor</label>
                         <input type="number" value="${space.factor}" min="1" oninput="updateSpaceField(${space.id}, 'factor', this.value)">
                     </div>`;
-                statsHtml = `
-                    <div class="table-wrapper">
-                    <table class="calc-table">
-                        <tr>
-                            <th colspan="6"><span class="table-header-title">Base Occupants:</span> <span class="table-header-value" id="row-total-${space.id}">0</span></th>
-                        </tr>
-                        <tr>
-                            <th colspan="3" style="border-right: 1px solid var(--border-color);"><span class="table-header-title">Design Male:</span> <span class="table-header-value" id="row-dmale-${space.id}">0</span></th>
-                            <th colspan="3"><span class="table-header-title">Design Female:</span> <span class="table-header-value" id="row-dfemale-${space.id}">0</span></th>
-                        </tr>
-                        <tr>
-                            <th class="fixture-header">M-WC</th>
-                            <th class="fixture-header">M-Ur</th>
-                            <th class="fixture-header" style="border-right: 1px solid var(--border-color);">F-WC</th>
-                            <th class="fixture-header">M-Lav</th>
-                            <th class="fixture-header">F-Lav</th>
-                            <th class="fixture-header">DF</th>
-                        </tr>
-                        <tr>
-                            <td><span class="fixture-value" id="row-mwc-${space.id}">0.00</span></td>
-                            <td><span class="fixture-value" id="row-mur-${space.id}">0.00</span></td>
-                            <td style="border-right: 1px solid var(--border-color);"><span class="fixture-value" id="row-fwc-${space.id}">0.00</span></td>
-                            <td><span class="fixture-value" id="row-mlav-${space.id}">0.00</span></td>
-                            <td><span class="fixture-value" id="row-flav-${space.id}">0.00</span></td>
-                            <td><span class="fixture-value" id="row-df-${space.id}">0.00</span></td>
-                        </tr>
-                    </table>
-                    </div>`;
             } else if (logic.calcType === 'seats') {
                 inputsHtml = `
                     <div class="input-group">
                         <label>Number of Seats</label>
                         <input type="number" value="${space.seats || 0}" min="0" oninput="updateSpaceField(${space.id}, 'seats', this.value)">
-                    </div>`;
-                statsHtml = `
-                    <div class="table-wrapper">
-                    <table class="calc-table">
-                        <tr>
-                            <th colspan="6"><span class="table-header-title">Base Occupants:</span> <span class="table-header-value" id="row-total-${space.id}">0</span></th>
-                        </tr>
-                        <tr>
-                            <th colspan="3" style="border-right: 1px solid var(--border-color);"><span class="table-header-title">Design Male:</span> <span class="table-header-value" id="row-dmale-${space.id}">0</span></th>
-                            <th colspan="3"><span class="table-header-title">Design Female:</span> <span class="table-header-value" id="row-dfemale-${space.id}">0</span></th>
-                        </tr>
-                        <tr>
-                            <th class="fixture-header">M-WC</th>
-                            <th class="fixture-header">M-Ur</th>
-                            <th class="fixture-header" style="border-right: 1px solid var(--border-color);">F-WC</th>
-                            <th class="fixture-header">M-Lav</th>
-                            <th class="fixture-header">F-Lav</th>
-                            <th class="fixture-header">DF</th>
-                        </tr>
-                        <tr>
-                            <td><span class="fixture-value" id="row-mwc-${space.id}">0.00</span></td>
-                            <td><span class="fixture-value" id="row-mur-${space.id}">0.00</span></td>
-                            <td style="border-right: 1px solid var(--border-color);"><span class="fixture-value" id="row-fwc-${space.id}">0.00</span></td>
-                            <td><span class="fixture-value" id="row-mlav-${space.id}">0.00</span></td>
-                            <td><span class="fixture-value" id="row-flav-${space.id}">0.00</span></td>
-                            <td><span class="fixture-value" id="row-df-${space.id}">0.00</span></td>
-                        </tr>
-                    </table>
                     </div>`;
             } else if (logic.calcType === 'units') {
                 inputsHtml = `
@@ -989,16 +947,23 @@
                         <label>Number of Rooms / Units</label>
                         <input type="number" value="${space.units || 0}" min="0" oninput="updateSpaceField(${space.id}, 'units', this.value)">
                     </div>`;
+            }
+
+            if(logic.calcType === 'area' || logic.calcType === 'seats') {
+                statsHtml = `
+                    <div style="margin-top: 1rem;">
+                        <span style="color: var(--text-main); font-size: 0.8rem; margin-right: 0.5rem; font-weight: normal;">Base Occupants:</span>
+                        <span class="table-header-value" id="row-total-${space.id}" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-weight: 600; color: var(--text-main); background: #e4e4e7; padding: 0.15rem 0.4rem; border-radius: 4px; display: inline-block; -webkit-print-color-adjust: exact; print-color-adjust: exact;">0</span>
+                    </div>`;
+            } else if (logic.calcType === 'units') {
                 statsHtml = `
                     <div class="table-wrapper">
                     <table class="calc-table">
                         <tr>
-                            <th class="fixture-header"><span class="table-header-title">Private/Unisex WC</span></th>
-                            <th class="fixture-header"><span class="table-header-title">Private/Unisex Lav</span></th>
+                            <th class="fixture-header"><span class="table-header-title">Private/Unisex Units</span></th>
                         </tr>
                         <tr>
                             <td><span class="fixture-value" id="row-uwc-${space.id}">0</span></td>
-                            <td><span class="fixture-value" id="row-ulav-${space.id}">0</span></td>
                         </tr>
                     </table>
                     </div>`;
@@ -1029,11 +994,6 @@
                     ${inputsHtml}
                 </div>
                 ${statsHtml}
-                ${logic.calcType !== 'units' ? `
-                <details class="math-breakdown">
-                    <summary>View Math Breakdown</summary>
-                    <div id="math-${space.id}"></div>
-                </details>` : ''}
             `;
             container.appendChild(div);
             
@@ -1076,6 +1036,7 @@
         if (space) {
             space.name = val;
             updateURLHashSilently();
+            calculateTotals();
         }
     }
 
@@ -1107,54 +1068,20 @@
         
         if (logic.calcType === 'area' || logic.calcType === 'seats') {
             let totalOcc = 0;
-            let occMathString = '';
-            
             if(logic.calcType === 'area') {
                 const area = parseFloat(space.area) || 0;
                 const factor = parseFloat(space.factor) || 150;
                 totalOcc = Math.ceil(area / factor);
-                
-                const maleOcc = Math.ceil(totalOcc / 2);
-                const femaleOcc = Math.ceil(totalOcc / 2);
-                const rowDesignTotal = maleOcc + femaleOcc;
-                
-                occMathString = `<p class="highlight-math">Base Load: ${area} sq ft ÷ ${factor} factor = ${totalOcc} Occupants ➔ 50/50 Split rounds up to <strong>${maleOcc} Male</strong> & <strong>${femaleOcc} Female</strong> (Design Load: ${rowDesignTotal})</p>`;
             } else {
                 const seats = parseFloat(space.seats) || 0;
                 totalOcc = Math.ceil(seats);
-                
-                const maleOcc = Math.ceil(totalOcc / 2);
-                const femaleOcc = Math.ceil(totalOcc / 2);
-                const rowDesignTotal = maleOcc + femaleOcc;
-                
-                occMathString = `<p class="highlight-math">Base Load: ${seats} seats = ${totalOcc} Occupants ➔ 50/50 Split rounds up to <strong>${maleOcc} Male</strong> & <strong>${femaleOcc} Female</strong> (Design Load: ${rowDesignTotal})</p>`;
             }
 
-            const maleOcc = Math.ceil(totalOcc / 2);
-            const femaleOcc = Math.ceil(totalOcc / 2);
-            
             document.getElementById('row-total-'+space.id).innerText = totalOcc;
-            document.getElementById('row-dmale-'+space.id).innerText = maleOcc;
-            document.getElementById('row-dfemale-'+space.id).innerText = femaleOcc;
-            document.getElementById('row-mwc-'+space.id).innerText = logic.mWC(maleOcc).toFixed(2);
-            document.getElementById('row-fwc-'+space.id).innerText = logic.fWC(femaleOcc).toFixed(2);
-            document.getElementById('row-mur-'+space.id).innerText = logic.mUr(maleOcc).toFixed(2);
-            document.getElementById('row-mlav-'+space.id).innerText = logic.mLav(maleOcc).toFixed(2);
-            document.getElementById('row-flav-'+space.id).innerText = logic.fLav(femaleOcc).toFixed(2);
-            document.getElementById('row-df-'+space.id).innerText = logic.df(totalOcc).toFixed(2);
-
-            const mathContainer = document.getElementById('math-'+space.id);
-            if (mathContainer) {
-                mathContainer.innerHTML = occMathString +
-                    logic.mathMWC(maleOcc) + logic.mathFWC(femaleOcc) + 
-                    logic.mathMUr(maleOcc) + logic.mathMLav(maleOcc) + 
-                    logic.mathFLav(femaleOcc) + logic.mathDF(totalOcc);
-            }
 
         } else if (logic.calcType === 'units') {
             const units = parseFloat(space.units) || 0;
             document.getElementById('row-uwc-'+space.id).innerText = units;
-            document.getElementById('row-ulav-'+space.id).innerText = units;
         }
     }
 
@@ -1163,54 +1090,148 @@
         let gtmWC = 0, gtfWC = 0, gtmUr = 0, gtmLav = 0, gtfLav = 0, gtDF = 0;
         let gtuWC = 0, gtuLav = 0;
         
+        // Track the fractional elements for the final summation breakdown
         let sumStrings = {
-            mWC: [], fWC: [], mUr: [], mLav: [], fLav: [], df: []
+            mWC: [], fWC: [], mUr: [], mLav: [], fLav: [], df: [], uWC: [], uLav: []
         };
+        
+        const buckets = {};
+        const rootColorMap = getRootColorMap();
 
-        spaces.forEach((space, index) => {
+        // 1. Data Pipeline & Aggregation Phase
+        spaces.forEach((space) => {
             const logic = occupancyData[space.type];
-            const spaceColor = halftoneColors[index % halftoneColors.length];
-            const badge = (val) => `<span style="background-color: ${spaceColor}; padding: 1px 4px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.1); display: inline-block; -webkit-print-color-adjust: exact; print-color-adjust: exact;" title="${space.name}">${val}</span>`;
+            const rId = logic.rootId;
+            
+            if (!buckets[rId]) {
+                buckets[rId] = {
+                    rootId: rId,
+                    rootLabel: logic.rootLabel,
+                    calcType: logic.calcType,
+                    logic: logic,
+                    totalOcc: 0,
+                    units: 0,
+                    spaceNames: [],
+                    spaceOccs: []
+                };
+            }
 
             if (logic.calcType === 'area' || logic.calcType === 'seats') {
-                let totalOcc = 0;
+                let occ = 0;
                 if(logic.calcType === 'area') {
                     const area = parseFloat(space.area) || 0;
                     const factor = parseFloat(space.factor) || 150;
-                    totalOcc = Math.ceil(area / factor);
+                    occ = Math.ceil(area / factor);
                 } else {
                     const seats = parseFloat(space.seats) || 0;
-                    totalOcc = Math.ceil(seats);
+                    occ = Math.ceil(seats);
                 }
-
-                const maleOcc = Math.ceil(totalOcc / 2);
-                const femaleOcc = Math.ceil(totalOcc / 2);
-
-                gtTotal += totalOcc;
-                gtMale += maleOcc;
-                gtFemale += femaleOcc;
-                
-                gtmWC += logic.mWC(maleOcc);
-                gtfWC += logic.fWC(femaleOcc);
-                gtmUr += logic.mUr(maleOcc);
-                gtmLav += logic.mLav(maleOcc);
-                gtfLav += logic.fLav(femaleOcc);
-                gtDF += logic.df(totalOcc);
-                
-                sumStrings.mWC.push(badge(logic.mWC(maleOcc).toFixed(2)));
-                sumStrings.fWC.push(badge(logic.fWC(femaleOcc).toFixed(2)));
-                sumStrings.mUr.push(badge(logic.mUr(maleOcc).toFixed(2)));
-                sumStrings.mLav.push(badge(logic.mLav(maleOcc).toFixed(2)));
-                sumStrings.fLav.push(badge(logic.fLav(femaleOcc).toFixed(2)));
-                sumStrings.df.push(badge(logic.df(totalOcc).toFixed(2)));
-
+                buckets[rId].totalOcc += occ;
+                buckets[rId].spaceNames.push(space.name);
+                buckets[rId].spaceOccs.push(occ);
             } else if (logic.calcType === 'units') {
                 const units = parseFloat(space.units) || 0;
-                gtuWC += units;
-                gtuLav += units;
+                buckets[rId].units += units;
+                buckets[rId].spaceNames.push(space.name);
+                buckets[rId].spaceOccs.push(units);
             }
         });
 
+        let mathBreakdownHtml = '';
+        let legendHtml = `<div class="legend-container">`;
+
+        // 2. Map Legend
+        Object.values(buckets).forEach(bucket => {
+             const color = rootColorMap[bucket.rootId];
+             legendHtml += `<div class="legend-item"><span class="legend-swatch" style="background-color:${color};"></span> ${bucket.rootLabel}</div>`;
+        });
+        legendHtml += `</div>`;
+        
+        // Dynamic Badge Generator for consistent UI styling
+        const badge = (val, color, title) => `<span style="background-color: ${color}; padding: 1px 4px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.1); display: inline-block; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; -webkit-print-color-adjust: exact; print-color-adjust: exact;" title="${title}"><strong>${val}</strong></span>`;
+        const applyBadgeToMath = (htmlStr, color) => htmlStr.replace(/<strong>([\d.]+)<\/strong>/g, badge('$1', color, ''));
+
+        // 3. Calculation Engine Execution Phase
+        Object.values(buckets).forEach(bucket => {
+            const bColor = rootColorMap[bucket.rootId];
+            
+            if (bucket.calcType === 'area' || bucket.calcType === 'seats') {
+                const maleOcc = Math.ceil(bucket.totalOcc / 2);
+                const femaleOcc = Math.ceil(bucket.totalOcc / 2);
+
+                gtTotal += bucket.totalOcc;
+                gtMale += maleOcc;
+                gtFemale += femaleOcc;
+
+                const b_mWC = bucket.logic.mWC(maleOcc);
+                const b_fWC = bucket.logic.fWC(femaleOcc);
+                const b_mUr = bucket.logic.mUr(maleOcc);
+                const b_mLav = bucket.logic.mLav(maleOcc);
+                const b_fLav = bucket.logic.fLav(femaleOcc);
+                const b_df = bucket.logic.df(bucket.totalOcc);
+
+                gtmWC += b_mWC;
+                gtfWC += b_fWC;
+                gtmUr += b_mUr;
+                gtmLav += b_mLav;
+                gtfLav += b_fLav;
+                gtDF += b_df;
+                
+                // Push styled fractions to the global sum array
+                if(b_mWC > 0) sumStrings.mWC.push(badge(b_mWC.toFixed(2), bColor, bucket.rootLabel));
+                if(b_fWC > 0) sumStrings.fWC.push(badge(b_fWC.toFixed(2), bColor, bucket.rootLabel));
+                if(b_mUr > 0) sumStrings.mUr.push(badge(b_mUr.toFixed(2), bColor, bucket.rootLabel));
+                if(b_mLav > 0) sumStrings.mLav.push(badge(b_mLav.toFixed(2), bColor, bucket.rootLabel));
+                if(b_fLav > 0) sumStrings.fLav.push(badge(b_fLav.toFixed(2), bColor, bucket.rootLabel));
+                if(b_df > 0) sumStrings.df.push(badge(b_df.toFixed(2), bColor, bucket.rootLabel));
+
+                // Generate sub-labels for space additions and split 50/50 onto a new line
+                const additionLabels = bucket.spaceOccs.map((occ, i) => `${occ} <span style="font-size:0.85em; opacity:0.75;">(${bucket.spaceNames[i]})</span>`).join(' + ');
+                const spaceAdditions = bucket.spaceOccs.length > 1 ? `<br><span style="padding-left: 1rem;">= ${additionLabels}</span>` : '';
+                
+                mathBreakdownHtml += `
+                    <div class="breakdown-group">
+                        <h4 style="margin: 0 0 0.5rem 0; color: var(--text-main); font-size: 0.9rem;">
+                            <span class="legend-swatch" style="background-color:${bColor}; display:inline-block; margin-right:4px; vertical-align:middle;"></span>
+                            ${bucket.rootLabel}
+                        </h4>
+                        <p class="highlight-math">Aggregated Base Load: <strong>${bucket.totalOcc} Occupants</strong> ${spaceAdditions}</p>
+                        <p class="highlight-math" style="margin-top: 0.25rem;">➔ 50/50 Split rounds up to <strong>${maleOcc} Male</strong> & <strong>${femaleOcc} Female</strong></p>
+                        ${applyBadgeToMath(bucket.logic.mathMWC(maleOcc), bColor)}
+                        ${applyBadgeToMath(bucket.logic.mathFWC(femaleOcc), bColor)}
+                        ${applyBadgeToMath(bucket.logic.mathMUr(maleOcc), bColor)}
+                        ${applyBadgeToMath(bucket.logic.mathMLav(maleOcc), bColor)}
+                        ${applyBadgeToMath(bucket.logic.mathFLav(femaleOcc), bColor)}
+                        ${applyBadgeToMath(bucket.logic.mathDF(bucket.totalOcc), bColor)}
+                    </div>
+                `;
+            } else if (bucket.calcType === 'units') {
+                gtuWC += bucket.units;
+                gtuLav += bucket.units;
+                
+                if(bucket.units > 0) {
+                    sumStrings.uWC.push(badge(bucket.units, bColor, bucket.rootLabel));
+                    sumStrings.uLav.push(badge(bucket.units, bColor, bucket.rootLabel));
+                }
+
+                const additionLabels = bucket.spaceOccs.map((occ, i) => `${occ} <span style="font-size:0.85em; opacity:0.75;">(${bucket.spaceNames[i]})</span>`).join(' + ');
+                const spaceAdditions = bucket.spaceOccs.length > 1 ? `<br><span style="padding-left: 1rem;">= ${additionLabels}</span>` : '';
+
+                mathBreakdownHtml += `
+                    <div class="breakdown-group">
+                        <h4 style="margin: 0 0 0.5rem 0; color: var(--text-main); font-size: 0.9rem;">
+                            <span class="legend-swatch" style="background-color:${bColor}; display:inline-block; margin-right:4px; vertical-align:middle;"></span>
+                            ${bucket.rootLabel}
+                        </h4>
+                        <p class="highlight-math">Aggregated Units: <strong>${bucket.units} Units</strong> ${spaceAdditions}</p>
+                        <p>Private/Unisex WC: ${badge(bucket.units, bColor, '')}</p>
+                        <p>Private/Unisex Lav: ${badge(bucket.units, bColor, '')}</p>
+                    </div>
+                `;
+            }
+        });
+
+        // 4. Set DOM Output Values
         document.getElementById('gt-total').innerText = gtTotal;
         document.getElementById('gt-male').innerText = gtMale;
         document.getElementById('gt-female').innerText = gtFemale;
@@ -1227,26 +1248,20 @@
         document.getElementById('gt-ag-lav').innerText = Math.ceil(gtmLav + gtfLav);
         document.getElementById('gt-df').innerText = Math.ceil(gtDF);
         
-        // Build Legend
-        let legendHtml = `<div class="legend-container">`;
-        spaces.forEach((space, index) => {
-             const color = halftoneColors[index % halftoneColors.length];
-             legendHtml += `<div class="legend-item"><span class="legend-swatch" style="background-color:${color};"></span> ${space.name}</div>`;
-        });
-        legendHtml += `</div>`;
-        
         const gtMathContainer = document.getElementById('gt-math-container');
         if (spaces.length > 0) {
-            gtMathContainer.innerHTML = `
-                <p><strong>Water Closets (M):</strong> ${sumStrings.mWC.join(' + ')} = ${gtmWC.toFixed(2)} ➔ <strong>${Math.ceil(gtmWC)}</strong></p>
-                <p><strong>Water Closets (F):</strong> ${sumStrings.fWC.join(' + ')} = ${gtfWC.toFixed(2)} ➔ <strong>${Math.ceil(gtfWC)}</strong></p>
-                <p><strong>Urinals (M):</strong> ${sumStrings.mUr.join(' + ')} = ${gtmUr.toFixed(2)} ➔ <strong>${Math.ceil(gtmUr)}</strong></p>
-                <p><strong>Lavatories (M):</strong> ${sumStrings.mLav.join(' + ')} = ${gtmLav.toFixed(2)} ➔ <strong>${Math.ceil(gtmLav)}</strong></p>
-                <p><strong>Lavatories (F):</strong> ${sumStrings.fLav.join(' + ')} = ${gtfLav.toFixed(2)} ➔ <strong>${Math.ceil(gtfLav)}</strong></p>
-                <p><strong>All-Gender Water Closets:</strong> Total (M) ${gtmWC.toFixed(2)} + Total (F) ${gtfWC.toFixed(2)} = ${(gtmWC + gtfWC).toFixed(2)} ➔ <strong>${Math.ceil(gtmWC + gtfWC)}</strong></p>
-                <p><strong>All-Gender Lavatories:</strong> Total (M) ${gtmLav.toFixed(2)} + Total (F) ${gtfLav.toFixed(2)} = ${(gtmLav + gtfLav).toFixed(2)} ➔ <strong>${Math.ceil(gtmLav + gtfLav)}</strong></p>
-                <p><strong>Drinking Fountains:</strong> ${sumStrings.df.join(' + ')} = ${gtDF.toFixed(2)} ➔ <strong>${Math.ceil(gtDF)}</strong></p>
-                ${(gtuWC > 0 || gtuLav > 0) ? `<p><em>Private/Unisex Units bypass fractional adding and assign directly at 1:1 ratio.</em></p>` : ''}
+            gtMathContainer.innerHTML = mathBreakdownHtml + `
+                <div class="breakdown-final">
+                    <h4 style="margin: 0 0 0.5rem 0; color: var(--text-main); font-size: 0.9rem;">Final Project Aggregation</h4>
+                    <p><strong>Total Water Closets (M):</strong> ${sumStrings.mWC.length > 0 ? sumStrings.mWC.join(' + ') + ' = ' : ''}${gtmWC.toFixed(2)} ➔ <strong>${Math.ceil(gtmWC)}</strong></p>
+                    <p><strong>Total Water Closets (F):</strong> ${sumStrings.fWC.length > 0 ? sumStrings.fWC.join(' + ') + ' = ' : ''}${gtfWC.toFixed(2)} ➔ <strong>${Math.ceil(gtfWC)}</strong></p>
+                    <p><strong>Total Urinals (M):</strong> ${sumStrings.mUr.length > 0 ? sumStrings.mUr.join(' + ') + ' = ' : ''}${gtmUr.toFixed(2)} ➔ <strong>${Math.ceil(gtmUr)}</strong></p>
+                    <p><strong>Total Lavatories (M):</strong> ${sumStrings.mLav.length > 0 ? sumStrings.mLav.join(' + ') + ' = ' : ''}${gtmLav.toFixed(2)} ➔ <strong>${Math.ceil(gtmLav)}</strong></p>
+                    <p><strong>Total Lavatories (F):</strong> ${sumStrings.fLav.length > 0 ? sumStrings.fLav.join(' + ') + ' = ' : ''}${gtfLav.toFixed(2)} ➔ <strong>${Math.ceil(gtfLav)}</strong></p>
+                    <p><strong>All-Gender Water Closets:</strong> Total (M) ${gtmWC.toFixed(2)} + Total (F) ${gtfWC.toFixed(2)} = ${(gtmWC + gtfWC).toFixed(2)} ➔ <strong>${Math.ceil(gtmWC + gtfWC)}</strong></p>
+                    <p><strong>All-Gender Lavatories:</strong> Total (M) ${gtmLav.toFixed(2)} + Total (F) ${gtfLav.toFixed(2)} = ${(gtmLav + gtfLav).toFixed(2)} ➔ <strong>${Math.ceil(gtmLav + gtfLav)}</strong></p>
+                    <p><strong>Total Drinking Fountains:</strong> ${sumStrings.df.length > 0 ? sumStrings.df.join(' + ') + ' = ' : ''}${gtDF.toFixed(2)} ➔ <strong>${Math.ceil(gtDF)}</strong></p>
+                </div>
                 ${legendHtml}
             `;
         } else {
@@ -1256,5 +1271,6 @@
 
     renderSpaces();
 </script>
+
 </body>
 </html>
