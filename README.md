@@ -29,7 +29,7 @@ The tool includes an expandable **Math Breakdown** section under the Project Gra
 ![Math Breakdown](docs/images/breakdown.png)
 
 ### PDF Export
-Generate reports for plan check submission. The PDF Export function automatically un-collapses all Math Breakdowns, strips away interactive UI elements, and formats the page for letter-sized sheets.
+Generate reports for plan check submission. The Print/Save PDF button automatically un-collapses all Math Breakdowns, strips away interactive UI elements, and formats the page for letter-sized sheets.
 
 ### JSON Import and Export
 Save your work locally without the need for a database or backend server.
