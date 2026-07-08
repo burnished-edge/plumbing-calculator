@@ -17,33 +17,29 @@ Welcome to the **LAPC Calculator**, a tool designed to streamline plumbing fixtu
 ## Features
 
 ### Occupied Spaces Management
-Easily tailor your project's programming by creating, deleting, and organizing different occupied spaces to match your building plans. 
+Easily tailor your project's programming by creating, deleting, and organizing different occupied spaces to match your building plans. Grand Total fixture counts are listed at the bottom of the page.
 * **Create/Delete:** Add as many spaces as your project requires, or remove them with a single click.
-* **Reorder:** Keep your spaces organized sequentially by using the **Up (▲)** and **Down (▼)** arrows on each section to move them up or down the list.
+* **Reorder:** Keep your spaces organized however you see fit. Simply click and drag on a blank area of each section to reorder the list of spaces.
 
-[SCREENSHOT]
+![Occupied Space Management](docs/images/spaces.png)
 
 ### Math Breakdown
-Transparency is key for plan check and code compliance. The tool includes an expandable **Math Breakdown** section for each space. This reveals the exact formulas and fractional math used to calculate occupant loads and male/female distributions before the final integer rounding is applied at the project total level.
+The tool includes an expandable **Math Breakdown** section under the Project Grand Totals. This reveals the exact formulas and fractional math used to calculate occupant loads and male/female distributions before the final integer rounding is applied at the project total level. If you have multiple spaces listed under the same Occupancy type, it will aggregate these occupants before running calcs. You can audit the math breakdown against a manual calculation to confirm the fixture counts are correct.
 
-[SCREENSHOT]
+![Math Breakdown](docs/images/breakdown.png)
 
 ### PDF Export
-Generate clean, professional, and dense code documents ready for plan check submission. The PDF Export function automatically un-collapses all Math Breakdowns, strips away interactive UI elements, and formats the page for highly legible, letter-sized printing.
-
-[SCREENSHOT]
+Generate reports for plan check submission. The PDF Export function automatically un-collapses all Math Breakdowns, strips away interactive UI elements, and formats the page for letter-sized sheets.
 
 ### JSON Import and Export
 Save your work locally without the need for a database or backend server.
 * **Export:** Download your current project configuration as a lightweight `.json` file for your records.
 * **Import:** Upload a previously saved `.json` file to instantly restore your project spaces, inputs, and settings.
 
-[SCREENSHOT]
+![JSON](docs/images/json.png)
 
 ### Copy Share Link
 Collaborate effortlessly by generating a custom URL. Clicking the **Copy Link** button encodes your current project configuration directly into the URL hash, allowing you to share the exact state of your calculator with colleagues, clients, or plan checkers.
-
-[SCREENSHOT]
 
 ---
 
