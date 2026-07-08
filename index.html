@@ -814,27 +814,34 @@
     }
 
     // Drag and Drop & Manual Movement Logic
-    let draggedId = null;
+   let draggedId = null;
 
     function handleDragStart(e, id) {
         if (!e.target.closest('.drag-handle')) { e.preventDefault(); return; }
         draggedId = id;
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text/plain', id);
-        setTimeout(() => e.currentTarget.classList.add('dragging'), 0);
+        setTimeout(() => e.target.closest('.space-card').classList.add('dragging'), 0);
     }
 
     function handleDragOver(e) {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'move';
-        e.currentTarget.classList.add('drag-over');
+        const card = e.target.closest('.space-card');
+        if (card) card.classList.add('drag-over');
     }
 
-    function handleDragLeave(e) { e.currentTarget.classList.remove('drag-over'); }
+    function handleDragLeave(e) { 
+        const card = e.target.closest('.space-card');
+        // Prevent flickering by ensuring we actually left the card, not just a child element
+        if (card && !card.contains(e.relatedTarget)) {
+            card.classList.remove('drag-over');
+        }
+    }
 
     function handleDrop(e, targetId) {
         e.preventDefault();
-        e.currentTarget.classList.remove('drag-over');
+        document.querySelectorAll('.space-card').forEach(c => c.classList.remove('drag-over'));
         
         if (draggedId !== null && draggedId !== targetId) {
             const fromIndex = spaces.findIndex(s => s.id === draggedId);
@@ -850,9 +857,11 @@
     }
 
     function handleDragEnd(e) {
-        e.currentTarget.classList.remove('dragging');
+        document.querySelectorAll('.space-card').forEach(c => {
+            c.classList.remove('dragging');
+            c.classList.remove('drag-over');
+        });
         draggedId = null;
-        document.querySelectorAll('.space-card').forEach(c => c.classList.remove('drag-over'));
     }
 
     function toggleDraggable(el, isDraggable) {
@@ -1140,8 +1149,11 @@
         let mathBreakdownHtml = '';
         let legendHtml = `<div class="legend-container">`;
 
+        // Sort buckets alphabetically by rootLabel
+        const sortedBuckets = Object.values(buckets).sort((a, b) => a.rootLabel.localeCompare(b.rootLabel));
+
         // 2. Map Legend
-        Object.values(buckets).forEach(bucket => {
+        sortedBuckets.forEach(bucket => {
              const color = rootColorMap[bucket.rootId];
              legendHtml += `<div class="legend-item"><span class="legend-swatch" style="background-color:${color};"></span> ${bucket.rootLabel}</div>`;
         });
@@ -1152,7 +1164,7 @@
         const applyBadgeToMath = (htmlStr, color) => htmlStr.replace(/<strong>([\d.]+)<\/strong>/g, badge('$1', color, ''));
 
         // 3. Calculation Engine Execution Phase
-        Object.values(buckets).forEach(bucket => {
+        sortedBuckets.forEach(bucket => {
             const bColor = rootColorMap[bucket.rootId];
             
             if (bucket.calcType === 'area' || bucket.calcType === 'seats') {
