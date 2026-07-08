@@ -817,7 +817,11 @@
    let draggedId = null;
 
     function handleDragStart(e, id) {
-        if (!e.target.closest('.drag-handle')) { e.preventDefault(); return; }
+        // Prevent drag if the user is clicking an input field, dropdown, or button
+        if (['INPUT', 'SELECT', 'TEXTAREA', 'BUTTON'].includes(e.target.tagName)) { 
+            e.preventDefault(); 
+            return; 
+        }
         draggedId = id;
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text/plain', id);
@@ -833,7 +837,6 @@
 
     function handleDragLeave(e) { 
         const card = e.target.closest('.space-card');
-        // Prevent flickering by ensuring we actually left the card, not just a child element
         if (card && !card.contains(e.relatedTarget)) {
             card.classList.remove('drag-over');
         }
@@ -864,39 +867,6 @@
         draggedId = null;
     }
 
-    function toggleDraggable(el, isDraggable) {
-        const card = el.closest('.space-card');
-        if (card) { card.draggable = isDraggable; }
-    }
-    
-    function moveUp(id) {
-        const index = spaces.findIndex(s => s.id === id);
-        if (index > 0) {
-            const temp = spaces[index];
-            spaces[index] = spaces[index - 1];
-            spaces[index - 1] = temp;
-            renderSpaces();
-            updateURLHashSilently();
-        }
-    }
-
-    function moveDown(id) {
-        const index = spaces.findIndex(s => s.id === id);
-        if (index < spaces.length - 1) {
-            const temp = spaces[index];
-            spaces[index] = spaces[index + 1];
-            spaces[index + 1] = temp;
-            renderSpaces();
-            updateURLHashSilently();
-        }
-    }
-
-    function updateURLHashSilently() {
-        const data = JSON.stringify(spaces);
-        const encoded = btoa(encodeURIComponent(data));
-        window.history.replaceState(null, null, '#' + encoded);
-    }
-
     function renderSpaces() {
         const container = document.getElementById('spaces-container');
         
@@ -909,6 +879,8 @@
         spaces.forEach((space, index) => {
             const div = document.createElement('div');
             div.className = 'space-card';
+            div.draggable = true; // Makes the entire card draggable
+            div.style.cursor = 'grab'; // Changes mouse to a hand icon
             
             // Assign color based on matching root code group
             const spaceColor = rootColorMap[occupancyData[space.type].rootId];
@@ -961,7 +933,7 @@
             if(logic.calcType === 'area' || logic.calcType === 'seats') {
                 statsHtml = `
                     <div style="margin-top: 1rem;">
-                        <span style="color: var(--text-main); font-size: 0.8rem; margin-right: 0.5rem; font-weight: normal;">Base Occupants:</span>
+                        <span style="color: var(--text-main); font-size: 0.8rem; margin-right: 0.5rem; font-weight: bold;">Base Occupants:</span>
                         <span class="table-header-value" id="row-total-${space.id}" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-weight: 600; color: var(--text-main); background: #e4e4e7; padding: 0.15rem 0.4rem; border-radius: 4px; display: inline-block; -webkit-print-color-adjust: exact; print-color-adjust: exact;">0</span>
                     </div>`;
             } else if (logic.calcType === 'units') {
@@ -981,13 +953,6 @@
             div.innerHTML = `
                 <div class="space-header">
                     <div class="space-header-left">
-                        <div class="move-controls">
-                            <button class="btn-icon" onclick="moveUp(${space.id})" ${index === 0 ? 'disabled' : ''} title="Move Up">▲</button>
-                            <button class="btn-icon" onclick="moveDown(${space.id})" ${index === spaces.length - 1 ? 'disabled' : ''} title="Move Down">▼</button>
-                        </div>
-                        <div class="drag-handle" onmouseenter="toggleDraggable(this, true)" onmouseleave="toggleDraggable(this, false)" title="Drag to reorder">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-                        </div>
                         <textarea class="space-title-input" rows="1" oninput="this.style.height='auto'; this.style.height=(this.scrollHeight)+'px'; updateSpaceName(${space.id}, this.value)" placeholder="Name this space...">${space.name}</textarea>
                         ${badgeHtml}
                     </div>
