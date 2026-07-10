@@ -39,7 +39,7 @@ Save your work locally without the need for a database or backend server.
 ![JSON](docs/images/json.png)
 
 ### Copy Share Link
-Collaborate by generating a custom URL. Clicking the **Copy Link** button encodes your current project configuration directly into the URL hash, allowing you to share the state of your calculator with colleagues, clients, or plan checkers.
+Collaborate by generating a custom URL. Clicking the `Copy Link` button encodes your current project configuration directly into the URL hash, allowing you to share the state of your calculator with colleagues, clients, or plan checkers.
 
 ---
 
