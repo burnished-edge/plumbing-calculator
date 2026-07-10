@@ -24,12 +24,12 @@ Tailor your project's programming by creating, deleting, and organizing occupied
 ![Occupied Space Management](docs/images/spaces.png)
 
 ### Math Breakdown
-The tool includes an expandable **Math Breakdown** section under the Project Grand Totals. This reveals the formulas and fractional math used to calculate occupant loads and male/female distributions before the final integer rounding is applied at the project total level. If you have multiple spaces listed under the same Occupancy type, it will aggregate these occupants before running calcs. You can audit the math breakdown against a manual calculation to confirm the fixture counts are correct.
+The tool includes an expandable **Math Breakdown** section under the Project Grand Totals. This reveals the formulas and fractional math used to calculate occupant loads and male/female distributions before the final integer rounding is applied at the project total level. If you have multiple spaces listed under the same Occupancy type, it will aggregate these occupants before running calcs. You can audit this math breakdown against a manual calculation to confirm the fixture counts are correct.
 
 ![Math Breakdown](docs/images/breakdown.png)
 
 ### PDF Export
-Generate reports for plan check submission. The Print/Save PDF button un-collapses all Math Breakdowns, strips away interactive UI elements, and formats the page for letter-sized sheets.
+Generate reports for plan check submission. The Print/Save PDF button at the top or bottom of the page un-collapses all Math Breakdowns, strips away interactive UI elements, and formats the page for letter-sized sheets.
 
 ### JSON Import and Export
 Save your work locally without the need for a database or backend server.
@@ -39,7 +39,7 @@ Save your work locally without the need for a database or backend server.
 ![JSON](docs/images/json.png)
 
 ### Copy Share Link
-Collaborate by generating a custom URL. Clicking the `Copy Link` button encodes your current project configuration directly into the URL hash, allowing you to share the state of your calculator with colleagues, clients, or plan checkers.
+Collaborate by generating a custom URL. Clicking the `Copy Link` button at the top of the page encodes your current project configuration directly into the URL hash, allowing you to share the state of your calculator with colleagues, clients, or plan checkers.
 
 ---
 
