@@ -201,6 +201,7 @@
         .results-panel { background-color: #f8fafc; border: 2px solid var(--border-color); border-radius: 6px; padding: 1rem; margin-top: 1.5rem; }
         .results-header { font-weight: 600; font-size: 1.1rem; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center; }
         .info-box { font-size: 0.75rem; color: #1e3a8a; background-color: #eff6ff; padding: 0.5rem 0.75rem; border-radius: 4px; border-left: 3px solid var(--accent); margin-bottom: 1rem; line-height: 1.4; }
+        .info-box a { color: inherit; text-decoration: underline; font-weight: 600; }
         
         .occupant-stats { display: flex; gap: 1.5rem; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
         .stat-box { display: flex; flex-direction: column; }
@@ -213,7 +214,7 @@
             grid-template-columns: repeat(4, 1fr); 
             gap: 1.5rem; 
             margin-bottom: 1rem; 
-            max-width: 900px; /* Condense horizontally */
+            max-width: 900px;
         }
         .fixture-category h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-top: 0; margin-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.25rem; }
         .result-row { display: flex; justify-content: space-between; align-items: center; padding: 0.35rem 0; font-size: 0.85rem; border-bottom: 1px solid #f1f5f9; }
@@ -233,15 +234,13 @@
         .legend-swatch { width: 12px; height: 12px; border-radius: 2px; border: 1px solid rgba(0,0,0,0.1); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         
         .add-btn-container { text-align: center; margin-top: 1rem; }
-
-        .add-btn-container { text-align: center; margin-top: 1rem; }
         
         .print-btn-bottom {
             display: block; width: 100%; margin-top: 1rem; padding: 0.75rem; background-color: #1e293b; color: white; font-weight: 600; border: none; border-radius: 4px; cursor: pointer; transition: opacity 0.2s;
         }
         .print-btn-bottom:hover { opacity: 0.9; }
 
-                @media print {
+        @media print {
             @page { size: letter portrait; margin: 0.4in; }
             body { background-color: #ffffff; padding: 0; font-size: 9pt; }
             .container { box-shadow: none; padding: 0; max-width: 100%; border: none; }
@@ -359,7 +358,7 @@
         <div class="header-titles">
             <h1>Project Plumbing Fixture Calculator</h1>
             <div class="subtitle">Fractional Method (2025 LAPC / 2025 CPC Tables 422.1 & 4-1)</div>
-            <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.25rem; font-style: italic;">Last Updated: July 8, 2026 at 10:40 AM PDT</div>
+            <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.25rem; font-style: italic;">Last Updated: October 29, 2026 at 11:04 AM PDT</div>
         </div>
         <div class="util-buttons">
             <button class="btn btn-outline" onclick="printReport()">Print / Save PDF</button>
@@ -382,12 +381,12 @@
             <span style="font-size: 0.7rem; font-weight: normal; color: var(--text-muted); background: #e2e8f0; padding: 0.2rem 0.4rem; border-radius: 3px;">Fractions Summed & Rounded Up</span>
         </div>
         
-                <div class="info-box">
-            <strong>Why is the Plumbing Design Load higher?</strong> Per CPC Section 422.1.1, when dividing a room's base occupant load by sex, odd numbers must be rounded UP to the next whole number for both males and females. Because this calculator evaluates your project space-by-space, this mandatory per-room rounding often results in a Plumbing Design Load that is higher than your raw Base Occupants.
+        <div class="info-box">
+            <strong>Why is the Plumbing Design Load higher?</strong> Per CPC Section 422.1.1, when dividing a room's base occupant load by sex, odd numbers must be rounded UP to the next whole number for both males and females. Because this calculator evaluates your project by occupancy group, this mandatory rounding on odd occupant totals can result in a Plumbing Design Load that is higher than your raw Base Occupants.
         </div>
         
         <div class="info-box" style="background-color: #f0fdf4; border-left-color: var(--success); color: #14532d;">
-            <strong>All-Gender Restroom Calculations:</strong> Per 2025 CPC Section 422.1.1, the minimum required fixture count for all-gender facilities is the aggregate (sum) of the Male and Female fractional calculations. <strong>Important:</strong> A single provided all-gender fixture can be counted toward <em>either</em> a required male fixture <em>or</em> a required female fixture, but <strong>not both</strong> simultaneously. The total combined number of fixtures provided across the project must always meet or exceed the total aggregate required.
+            <strong>All-Gender Restroom Calculations:</strong> Per 2025 CPC Section 422.1.1, the minimum required fixture count for all-gender facilities is the aggregate calculated at 50% female and 50% male in accordance with Table 422.1. While California does not explicitly state whether rounding occurs before or after combining the male and female figures, this calculator takes the safer, conservative approach recommended by IAPMO (authors of the model Uniform Plumbing Code) by summing fractional counts across multiple occupancies per sex, rounding the Male and Female totals UP to whole integers first, and then adding those two required integers together (see IAPMO's official guidance: <a href="https://eofficial.org/understanding-the-all-gender-bathroom-requirements-in-the-upc/" target="_blank" rel="noopener noreferrer">Understanding the All-Gender Bathroom Requirements in the UPC</a>). <strong>Important:</strong> A single provided all-gender fixture can be counted toward <em>either</em> a required male fixture <em>or</em> a required female fixture, but <strong>not both</strong> simultaneously.
         </div>
         
         <div class="occupant-stats">
@@ -404,7 +403,7 @@
                 <span class="stat-value" id="gt-female">0</span>
             </div>
             <div class="stat-box divider">
-                <span class="stat-label" title="Total design load used for plumbing math (Male + Female). This will often be higher than Base Occupants due to rounding up odd numbers per space.">Plumbing Design Load</span>
+                <span class="stat-label" title="Total design load used for plumbing math (Male + Female). This will often be higher than Base Occupants due to rounding up odd numbers.">Plumbing Design Load</span>
                 <span class="stat-value" id="gt-design-total">0</span>
             </div>
         </div>
@@ -427,7 +426,7 @@
                 <div class="result-row"><span>Lavatories</span><span class="value" id="gt-u-lav">0</span></div>
             </div>
             <div class="fixture-category">
-                <h3 title="Aggregate of M & F fractions per 2025 CPC 422.1.1" style="cursor:help; border-bottom: 1px dotted var(--border-color);">All-Gender (Aggregate)</h3>
+                <h3 title="Aggregate of rounded M & F required integers per 2025 CPC 422.1.1 & IAPMO guidance" style="cursor:help; border-bottom: 1px dotted var(--border-color);">All-Gender (Aggregate)</h3>
                 <div class="result-row"><span>Water Closets</span><span class="value" id="gt-ag-wc">0</span></div>
                 <div class="result-row"><span>Lavatories</span><span class="value" id="gt-ag-lav">0</span></div>
             </div>
@@ -730,6 +729,16 @@
         return false;
     }
 
+    function updateURLHashSilently() {
+        try {
+            const data = JSON.stringify(spaces);
+            const encoded = btoa(encodeURIComponent(data));
+            history.replaceState(null, null, '#' + encoded);
+        } catch(e) {
+            console.error("Could not update URL hash", e);
+        }
+    }
+
     if (!loadStateFromURL()) {
         spaces = [
             { id: Date.now(), name: 'Occupied Space 1', type: 'B', area: 15000, factor: 150, seats: 0, units: 0 }
@@ -814,10 +823,9 @@
     }
 
     // Drag and Drop & Manual Movement Logic
-   let draggedId = null;
+    let draggedId = null;
 
     function handleDragStart(e, id) {
-        // Prevent drag if the user is clicking an input field, dropdown, or button
         if (['INPUT', 'SELECT', 'TEXTAREA', 'BUTTON'].includes(e.target.tagName)) { 
             e.preventDefault(); 
             return; 
@@ -879,10 +887,9 @@
         spaces.forEach((space, index) => {
             const div = document.createElement('div');
             div.className = 'space-card';
-            div.draggable = true; // Makes the entire card draggable
-            div.style.cursor = 'grab'; // Changes mouse to a hand icon
+            div.draggable = true;
+            div.style.cursor = 'grab';
             
-            // Assign color based on matching root code group
             const spaceColor = rootColorMap[occupancyData[space.type].rootId];
             div.style.borderLeft = `5px solid ${spaceColor}`;
             
@@ -1208,36 +1215,46 @@
             }
         });
 
-        // 4. Set DOM Output Values
+        // 4. Calculate Final Rounded Integer Counts (per sex first, then sum for All-Gender per IAPMO)
+        const reqMWC = Math.ceil(gtmWC);
+        const reqFWC = Math.ceil(gtfWC);
+        const reqMUr = Math.ceil(gtmUr);
+        const reqMLav = Math.ceil(gtmLav);
+        const reqFLav = Math.ceil(gtfLav);
+        const reqAGWC = reqMWC + reqFWC;
+        const reqAGLav = reqMLav + reqFLav;
+        const reqDF = Math.ceil(gtDF);
+
+        // 5. Set DOM Output Values
         document.getElementById('gt-total').innerText = gtTotal;
         document.getElementById('gt-male').innerText = gtMale;
         document.getElementById('gt-female').innerText = gtFemale;
         document.getElementById('gt-design-total').innerText = (gtMale + gtFemale);
         
-        document.getElementById('gt-m-wc').innerText = Math.ceil(gtmWC);
-        document.getElementById('gt-f-wc').innerText = Math.ceil(gtfWC);
-        document.getElementById('gt-m-ur').innerText = Math.ceil(gtmUr);
-        document.getElementById('gt-m-lav').innerText = Math.ceil(gtmLav);
-        document.getElementById('gt-f-lav').innerText = Math.ceil(gtfLav);
+        document.getElementById('gt-m-wc').innerText = reqMWC;
+        document.getElementById('gt-f-wc').innerText = reqFWC;
+        document.getElementById('gt-m-ur').innerText = reqMUr;
+        document.getElementById('gt-m-lav').innerText = reqMLav;
+        document.getElementById('gt-f-lav').innerText = reqFLav;
         document.getElementById('gt-u-wc').innerText = gtuWC;
         document.getElementById('gt-u-lav').innerText = gtuLav;
-        document.getElementById('gt-ag-wc').innerText = Math.ceil(gtmWC + gtfWC);
-        document.getElementById('gt-ag-lav').innerText = Math.ceil(gtmLav + gtfLav);
-        document.getElementById('gt-df').innerText = Math.ceil(gtDF);
+        document.getElementById('gt-ag-wc').innerText = reqAGWC;
+        document.getElementById('gt-ag-lav').innerText = reqAGLav;
+        document.getElementById('gt-df').innerText = reqDF;
         
         const gtMathContainer = document.getElementById('gt-math-container');
         if (spaces.length > 0) {
             gtMathContainer.innerHTML = mathBreakdownHtml + `
                 <div class="breakdown-final">
                     <h4 style="margin: 0 0 0.5rem 0; color: var(--text-main); font-size: 0.9rem;">Final Project Aggregation</h4>
-                    <p><strong>Total Water Closets (M):</strong> ${sumStrings.mWC.length > 0 ? sumStrings.mWC.join(' + ') + ' = ' : ''}${gtmWC.toFixed(2)} ➔ <strong>${Math.ceil(gtmWC)}</strong></p>
-                    <p><strong>Total Water Closets (F):</strong> ${sumStrings.fWC.length > 0 ? sumStrings.fWC.join(' + ') + ' = ' : ''}${gtfWC.toFixed(2)} ➔ <strong>${Math.ceil(gtfWC)}</strong></p>
-                    <p><strong>Total Urinals (M):</strong> ${sumStrings.mUr.length > 0 ? sumStrings.mUr.join(' + ') + ' = ' : ''}${gtmUr.toFixed(2)} ➔ <strong>${Math.ceil(gtmUr)}</strong></p>
-                    <p><strong>Total Lavatories (M):</strong> ${sumStrings.mLav.length > 0 ? sumStrings.mLav.join(' + ') + ' = ' : ''}${gtmLav.toFixed(2)} ➔ <strong>${Math.ceil(gtmLav)}</strong></p>
-                    <p><strong>Total Lavatories (F):</strong> ${sumStrings.fLav.length > 0 ? sumStrings.fLav.join(' + ') + ' = ' : ''}${gtfLav.toFixed(2)} ➔ <strong>${Math.ceil(gtfLav)}</strong></p>
-                    <p><strong>All-Gender Water Closets:</strong> Total (M) ${gtmWC.toFixed(2)} + Total (F) ${gtfWC.toFixed(2)} = ${(gtmWC + gtfWC).toFixed(2)} ➔ <strong>${Math.ceil(gtmWC + gtfWC)}</strong></p>
-                    <p><strong>All-Gender Lavatories:</strong> Total (M) ${gtmLav.toFixed(2)} + Total (F) ${gtfLav.toFixed(2)} = ${(gtmLav + gtfLav).toFixed(2)} ➔ <strong>${Math.ceil(gtmLav + gtfLav)}</strong></p>
-                    <p><strong>Total Drinking Fountains:</strong> ${sumStrings.df.length > 0 ? sumStrings.df.join(' + ') + ' = ' : ''}${gtDF.toFixed(2)} ➔ <strong>${Math.ceil(gtDF)}</strong></p>
+                    <p><strong>Total Water Closets (M):</strong> ${sumStrings.mWC.length > 0 ? sumStrings.mWC.join(' + ') + ' = ' : ''}${gtmWC.toFixed(2)} ➔ <strong>${reqMWC}</strong></p>
+                    <p><strong>Total Water Closets (F):</strong> ${sumStrings.fWC.length > 0 ? sumStrings.fWC.join(' + ') + ' = ' : ''}${gtfWC.toFixed(2)} ➔ <strong>${reqFWC}</strong></p>
+                    <p><strong>Total Urinals (M):</strong> ${sumStrings.mUr.length > 0 ? sumStrings.mUr.join(' + ') + ' = ' : ''}${gtmUr.toFixed(2)} ➔ <strong>${reqMUr}</strong></p>
+                    <p><strong>Total Lavatories (M):</strong> ${sumStrings.mLav.length > 0 ? sumStrings.mLav.join(' + ') + ' = ' : ''}${gtmLav.toFixed(2)} ➔ <strong>${reqMLav}</strong></p>
+                    <p><strong>Total Lavatories (F):</strong> ${sumStrings.fLav.length > 0 ? sumStrings.fLav.join(' + ') + ' = ' : ''}${gtfLav.toFixed(2)} ➔ <strong>${reqFLav}</strong></p>
+                    <p><strong>All-Gender Water Closets (Aggregate of Rounded M + F per IAPMO):</strong> Required (M) ${reqMWC} + Required (F) ${reqFWC} = <strong>${reqAGWC}</strong></p>
+                    <p><strong>All-Gender Lavatories (Aggregate of Rounded M + F per IAPMO):</strong> Required (M) ${reqMLav} + Required (F) ${reqFLav} = <strong>${reqAGLav}</strong></p>
+                    <p><strong>Total Drinking Fountains:</strong> ${sumStrings.df.length > 0 ? sumStrings.df.join(' + ') + ' = ' : ''}${gtDF.toFixed(2)} ➔ <strong>${reqDF}</strong></p>
                 </div>
                 ${legendHtml}
             `;
